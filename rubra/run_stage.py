@@ -5,7 +5,6 @@ import subprocess
 from logger import get_logger, log_info
 from config import get_config, get_command, get_stage_options
 from ruffus.drmaa_wrapper import run_job, error_drmaa_job
-import drmaa
 
 GLOBAL_DRMAA_SESSION = None
 
@@ -42,6 +41,7 @@ def distributedCommand(stage, command, options):
     # initialise drmaa session the first time this is called
     if GLOBAL_DRMAA_SESSION is None:
         try:
+            import drmaa
             GLOBAL_DRMAA_SESSION = drmaa.Session()
             GLOBAL_DRMAA_SESSION.initialize()
         except RuntimeError as e:
